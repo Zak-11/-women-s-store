@@ -4,7 +4,7 @@ const {Product, ProductInfo} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class ProductController {
-    async create(req, res, next) {
+    async create(req, res, next, ) {
         try {
           const {name, price, brandId, typeId} = req.body
             const {img} = req.files
@@ -18,7 +18,7 @@ class ProductController {
                     ProductInfo.create({
                         title: i.title,
                         description: i.description,
-                        deviceId: product.id
+                        productId: product.id
                     })
                 )
             }*/
@@ -53,13 +53,13 @@ class ProductController {
 
     async getOne(req, res) {
         const {id} = req.params
-        const device = await Product.findOne(
+        const product = await Product.findOne(
             {
                 where: {id},
                 include: [{model: ProductInfo, as: 'info'}]
             },
         )
-        return res.json(device)
+        return res.json(product)
     }
 }
 
