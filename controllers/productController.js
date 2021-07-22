@@ -4,7 +4,7 @@ const {Product, ProductInfo} = require('../models/models')
 const ApiError = require('../error/ApiError');
 
 class ProductController {
-    async create(req, res, next, ) {
+    async create(req, res, next,info ) {
         try {
           const {name, price, brandId, typeId} = req.body
             const {img} = req.files
@@ -12,7 +12,7 @@ class ProductController {
            img.mv(path.resolve(__dirname, '..', 'static', fileName))
             const product = await Product.create({name, price, brandId, typeId, img: fileName});
 
-           /* if (info) {
+           if (info) {
                 info = JSON.parse(info)
                 info.forEach(i =>
                     ProductInfo.create({
@@ -21,7 +21,7 @@ class ProductController {
                         productId: product.id
                     })
                 )
-            }*/
+            }
 
             return res.json(product)
         } catch (e) {
